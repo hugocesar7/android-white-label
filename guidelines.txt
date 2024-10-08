@@ -1,0 +1,11 @@
+O projeto Android deve se enquadrar nas seguintes instruções:
+
+1- A IDE utilizada é o Android Studio
+2- Linguagem Kotlin
+3- Design de arquitetura MVVM
+4- Jetpack Compose
+5- Coroutines
+6- Retrofit
+7- Hilt para injeção de dependências
+8- JUnit e Mockito para testes
+9- Rest Countries API: Será utilizada a API do Rest Countries para obter informações detalhadas sobre países.
