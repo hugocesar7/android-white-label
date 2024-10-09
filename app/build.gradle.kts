@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")  // Mantendo o kapt
+    id("kotlin-kapt")  // Para o Kapt, que é usado pelo Hilt
     alias(libs.plugins.hilt.android)
 }
 
@@ -32,23 +32,23 @@ android {
         }
     }
 
-    // Configuração para Java e Kotlin com o target 1.8
+    // Configuração do Java e Kotlin para usar target 1.8
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"  // Mantendo Kotlin com target 1.8
+        jvmTarget = "1.8"
     }
 
-    // Configurações para o Compose
+    // Habilitando Jetpack Compose
     buildFeatures {
         compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"  // Versão compatível com Kotlin 1.9.0
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
 
     packaging {
@@ -61,12 +61,12 @@ android {
 dependencies {
     // Jetpack Compose
     implementation(libs.compose.ui)
-    implementation(libs.compose.material)
     implementation(libs.compose.tooling)
     implementation(libs.compose.tooling.preview)
-    implementation(libs.compose.activity)  // Para usar setContent
+    implementation(libs.compose.activity)
+    implementation(libs.compose.material3)
 
-    // Lifecycle e ViewModel (para Hilt e Compose)
+    // Lifecycle e ViewModel
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
@@ -81,9 +81,13 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.runtime.livedata)
     kapt(libs.hilt.compiler)
 
-    // Coil para carregar imagens
+    // Forçar o uso da versão 1.13.0 do JavaPoet (ou outra versão compatível)
+    implementation("com.squareup:javapoet:1.13.0")
+
+    // Coil para carregamento de imagens
     implementation(libs.coil.compose)
 
     // Testes

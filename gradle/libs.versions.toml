@@ -1,15 +1,17 @@
 [versions]
-kotlin = "1.9.0"  # Atualizado para Kotlin 1.9.0
-android-gradle = "8.1.0"  # Gradle plugin atualizado para versão 8.1.0
-compose = "1.5.1"  # Compose Compiler compatível com Kotlin 1.9.0
-lifecycle-compose = "2.6.0"
-coroutines = "1.6.4"
-retrofit = "2.9.0"
-hilt = "2.48"
-coil = "2.2.2"
-junit = "4.13.2"
-mockito = "4.6.1"
+kotlin = "1.9.0"  # Versão do Kotlin
+android-gradle = "8.1.0"  # Versão do Android Gradle Plugin
+compose = "1.5.1"  # Versão do Jetpack Compose e Compose Compiler
+lifecycle-compose = "2.6.0"  # Lifecycle para Compose
+coroutines = "1.6.4"  # Coroutines
+retrofit = "2.9.0"  # Retrofit para chamadas de API
+hilt = "2.48"  # Hilt para injeção de dependência, atualizado para a versão mais recente
+coil = "2.2.2"  # Coil para carregamento de imagens
+junit = "4.13.2"  # JUnit para testes
+mockito = "4.6.1"  # Mockito para testes
 lifecycle = "2.6.0"
+runtime-livedata-version = "1.7.3"  # Lifecycle para ViewModel e LiveData
+material3 = "1.1.1"  # Versão do Material 3
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle" }
@@ -19,10 +21,10 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 [libraries]
 # Jetpack Compose
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
 compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
 compose-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version = "1.7.0" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 
 # Lifecycle e ViewModel
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
@@ -37,7 +39,7 @@ coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutin
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
-# Hilt para injeção de dependências
+# Hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 
@@ -47,3 +49,4 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 # Testes
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtime-livedata-version" }
