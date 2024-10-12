@@ -27,6 +27,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
@@ -82,8 +83,13 @@ fun CountriesList(countries: List<Country>, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(
+                top = dimensionResource(id = R.dimen.item_spacing),
+                start = dimensionResource(id = R.dimen.list_horizontal_padding),
+                bottom = dimensionResource(id = R.dimen.item_spacing),
+                end = dimensionResource(id = R.dimen.list_horizontal_padding)
+            ),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.item_spacing))
     ) {
         items(countries) { country ->
             CountryItem(country = country)
@@ -96,22 +102,22 @@ fun CountryItem(country: Country) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceVariant,
         shape = MaterialTheme.shapes.medium,
-        shadowElevation = 4.dp,
+        shadowElevation = dimensionResource(id = R.dimen.surface_shadow_elevation),
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.row_padding))
         ) {
             Image(
                 painter = rememberImagePainter(data = country.flags.png),
                 contentDescription = "Flag of ${country.name.common}",
                 modifier = Modifier
-                    .size(64.dp)
+                    .size(dimensionResource(id = R.dimen.image_size))
                     .clip(MaterialTheme.shapes.small)
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.spacer_width)))
 
             Text(
                 text = country.name.common,
