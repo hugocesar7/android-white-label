@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -49,28 +51,21 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = { AppBar() },
                     content = { paddingValues ->
-                        // Observa o estado da UI vindo do ViewModel
                         val uiState = viewModel.uiState.observeAsState()
 
-                        // Renderiza a UI com base no estado atual
                         when (val state = uiState.value) {
                             is UiState.Loading -> {
-                                // Exibe o indicador de carregamento
-//                                CircularProgressIndicator(
-//                                    modifier = Modifier
-//                                        .fillMaxSize()
-//                                        .padding(paddingValues)
-//                                )
+                                LoadingIndicator()
                             }
+
                             is UiState.Success -> {
-                                // Exibe a lista de países
                                 CountriesList(
                                     countries = state.countries,
                                     modifier = Modifier.padding(paddingValues)
                                 )
                             }
+
                             is UiState.Error -> {
-                                // Exibe uma mensagem de erro
                                 Text(
                                     text = state.message,
                                     modifier = Modifier
@@ -80,8 +75,13 @@ class MainActivity : ComponentActivity() {
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }
+
                             null -> {
-                                // Tratar o estado null (caso necessário)
+                                Text(
+                                    text = stringResource(id = R.string.no_data),
+                                    modifier = Modifier.fillMaxSize(),
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
                             }
                         }
                     }
@@ -153,5 +153,19 @@ fun CountryItem(country: Country) {
                 style = MaterialTheme.typography.bodyLarge
             )
         }
+    }
+}
+
+@Composable
+fun LoadingIndicator() {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()  // O Box preenche a tela, mas o indicador será centralizado e pequeno
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.size(dimensionResource(id = R.dimen.progress_indicator_size)),  // Tamanho do indicador
+            strokeWidth = dimensionResource(id = R.dimen.progress_indicator_stroke_width),  // Espessura do indicador
+            color = MaterialTheme.colorScheme.primary  // Usando a cor primária do tema
+        )
     }
 }
