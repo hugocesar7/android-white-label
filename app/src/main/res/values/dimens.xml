@@ -7,4 +7,6 @@
     <dimen name="row_padding">16dp</dimen>
     <dimen name="image_size">64dp</dimen>
     <dimen name="spacer_width">16dp</dimen>
+    <dimen name="progress_indicator_size">40dp</dimen>
+    <dimen name="progress_indicator_stroke_width">2dp</dimen>
 </resources>
