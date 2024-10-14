@@ -160,12 +160,12 @@ fun CountryItem(country: Country) {
 fun LoadingIndicator() {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()  // O Box preenche a tela, mas o indicador será centralizado e pequeno
+        modifier = Modifier.fillMaxSize()
     ) {
         CircularProgressIndicator(
-            modifier = Modifier.size(dimensionResource(id = R.dimen.progress_indicator_size)),  // Tamanho do indicador
-            strokeWidth = dimensionResource(id = R.dimen.progress_indicator_stroke_width),  // Espessura do indicador
-            color = MaterialTheme.colorScheme.primary  // Usando a cor primária do tema
+            modifier = Modifier.size(dimensionResource(id = R.dimen.progress_indicator_size)),
+            strokeWidth = dimensionResource(id = R.dimen.progress_indicator_stroke_width),
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
