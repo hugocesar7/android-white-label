@@ -48,7 +48,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()  // Versão correta do Compose
     }
 
     packaging {
@@ -65,6 +65,8 @@ dependencies {
     implementation(libs.compose.tooling.preview)
     implementation(libs.compose.activity)
     implementation(libs.compose.material3)
+    implementation(libs.compose.animation)  // Dependência adicionada
+    implementation(libs.compose.runtime)    // Dependência adicionada
 
     // Lifecycle e ViewModel
     implementation(libs.lifecycle.runtime.ktx)
@@ -84,13 +86,14 @@ dependencies {
     implementation(libs.runtime.livedata)
     kapt(libs.hilt.compiler)
 
-    // Forçar o uso da versão 1.13.0 do JavaPoet (ou outra versão compatível)
-    implementation("com.squareup:javapoet:1.13.0")
-
     // Coil para carregamento de imagens
     implementation(libs.coil.compose)
+
+    // Para evitar problemas de incompatibilidade com JavaPoet (geralmente associado ao Hilt)
+    implementation("com.squareup:javapoet:1.13.0")
 
     // Testes
     testImplementation(libs.junit)
     testImplementation(libs.mockito)
 }
+

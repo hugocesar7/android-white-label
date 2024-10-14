@@ -29,12 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.androidwhitelabel.R
 import com.example.androidwhitelabel.data.model.Country
 import com.example.androidwhitelabel.ui.theme.MainTheme
 import com.example.androidwhitelabel.viewmodel.CountriesViewModel
+import com.example.androidwhitelabel.viewmodel.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,12 +49,41 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = { AppBar() },
                     content = { paddingValues ->
-                        val countries = viewModel.countries.observeAsState(initial = emptyList())
+                        // Observa o estado da UI vindo do ViewModel
+                        val uiState = viewModel.uiState.observeAsState()
 
-                        CountriesList(
-                            countries = countries.value,
-                            modifier = Modifier.padding(paddingValues)
-                        )
+                        // Renderiza a UI com base no estado atual
+                        when (val state = uiState.value) {
+                            is UiState.Loading -> {
+                                // Exibe o indicador de carregamento
+//                                CircularProgressIndicator(
+//                                    modifier = Modifier
+//                                        .fillMaxSize()
+//                                        .padding(paddingValues)
+//                                )
+                            }
+                            is UiState.Success -> {
+                                // Exibe a lista de países
+                                CountriesList(
+                                    countries = state.countries,
+                                    modifier = Modifier.padding(paddingValues)
+                                )
+                            }
+                            is UiState.Error -> {
+                                // Exibe uma mensagem de erro
+                                Text(
+                                    text = state.message,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(paddingValues),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
+                            null -> {
+                                // Tratar o estado null (caso necessário)
+                            }
+                        }
                     }
                 )
             }

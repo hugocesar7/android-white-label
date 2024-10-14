@@ -15,8 +15,9 @@ class CountriesViewModel @Inject constructor(
     private val repository: CountriesRepository
 ) : ViewModel() {
 
-    private val _countries = MutableLiveData<List<Country>>()
-    val countries: LiveData<List<Country>> get() = _countries
+    // LiveData para gerenciar o estado da UI
+    private val _uiState = MutableLiveData<UiState>()
+    val uiState: LiveData<UiState> get() = _uiState
 
     init {
         getCountries()
@@ -24,11 +25,12 @@ class CountriesViewModel @Inject constructor(
 
     private fun getCountries() {
         viewModelScope.launch {
+            _uiState.value = UiState.Loading  // Estado de carregamento
             try {
-                val result = repository.getAllCountries()
-                _countries.value = result
+                val countries = repository.getAllCountries()
+                _uiState.value = UiState.Success(countries)  // Estado de sucesso
             } catch (e: Exception) {
-                // Trate o erro (pode ser com um estado de erro na UI)
+                _uiState.value = UiState.Error("Erro ao carregar a lista de países")  // Estado de erro
             }
         }
     }
