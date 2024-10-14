@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">android-white-label</string>
     <string name="main_screen_app_bar_title">Lista de Países</string>
+    <string name="no_data">No data available</string>
 </resources>
