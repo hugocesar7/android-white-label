@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")  // Para o Kapt, que é usado pelo Hilt
+    id("kotlin-kapt")
     alias(libs.plugins.hilt.android)
 }
 
@@ -65,8 +65,8 @@ dependencies {
     implementation(libs.compose.tooling.preview)
     implementation(libs.compose.activity)
     implementation(libs.compose.material3)
-    implementation(libs.compose.animation)  // Dependência adicionada
-    implementation(libs.compose.runtime)    // Dependência adicionada
+    implementation(libs.compose.animation)
+    implementation(libs.compose.runtime)
 
     // Lifecycle e ViewModel
     implementation(libs.lifecycle.runtime.ktx)
@@ -92,8 +92,17 @@ dependencies {
     // Para evitar problemas de incompatibilidade com JavaPoet (geralmente associado ao Hilt)
     implementation("com.squareup:javapoet:1.13.0")
 
-    // Testes
+    // Testes Unitários
     testImplementation(libs.junit)
     testImplementation(libs.mockito)
-}
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.arch.core.testing)  // Para usar InstantTaskExecutorRule e testar LiveData
+    testImplementation(libs.coroutines.test)    // Para testes com Coroutines
+    testImplementation(libs.hilt.android.testing)  // Hilt para testes
+    kaptTest(libs.hilt.compiler)
+    testImplementation(libs.mockk)  // Alternativa ao Mockito
 
+    // Testes instrumentados (Android Test)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+}
