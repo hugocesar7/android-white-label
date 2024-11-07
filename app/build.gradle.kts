@@ -23,6 +23,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -42,9 +46,10 @@ android {
         jvmTarget = "1.8"
     }
 
-    // Habilitando Jetpack Compose
     buildFeatures {
         compose = true
+        buildConfig = true
+        flavorDimensions += "environment"
     }
 
     composeOptions {
@@ -54,6 +59,17 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
+    productFlavors {
+        create("mock") {
+            dimension = "environment"
+            buildConfigField("boolean", "USE_MOCK", "true")
+        }
+        create("prod") {
+            dimension = "environment"
+            buildConfigField("boolean", "USE_MOCK", "false")
         }
     }
 }
